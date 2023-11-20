@@ -1,0 +1,115 @@
+import random
+import time
+
+print(f"choose 6 numbers, in range 1-49 separated by one space, eg. 7 8 13 27 31 45")
+in_Numbers = input()
+numbers_Split = in_Numbers.split()
+numbers = [int(num) for num in numbers_Split]
+threshold = 49
+
+
+def has_duplicates(lst):
+    seen = set()
+    for num in numbers:
+        if num in seen:
+            return True
+        seen.add(num)
+    return False
+
+
+def has_no_ints_greater_than(numbers, threshold):
+    for num in numbers:
+        if num > threshold:
+            return False
+    return True
+
+
+print(f"Okay so numbers you've chosen are {numbers}, lock in? (y/n)")
+
+play = input()
+
+if play == "y" and len(numbers) == 6 and not has_duplicates(numbers) and has_no_ints_greater_than(numbers, 49):
+    
+
+    def generator_numers():
+        global temp_chosen_Numbers
+
+        First = random.randint(1, 49)
+        Second = random.randint(1, 48)
+        Third = random.randint(1, 47)
+        Fourth = random.randint(1, 46)
+        Fifth = random.randint(1, 45)
+        Sixth = random.randint(1, 44)
+        temp_chosen_Numbers = [First, Second, Third, Fourth, Fifth, Sixth]
+        
+        while has_duplicates(temp_chosen_Numbers):
+            First = random.randint(1, 49)
+            Second = random.randint(1, 48)
+            Third = random.randint(1, 47)
+            Fourth = random.randint(1, 46)
+            Fifth = random.randint(1, 45)
+            Sixth = random.randint(1, 44)
+
+        temp_another_chosen_Numbers = [First, Second, Third, Fourth, Fifth, Sixth]
+
+        return temp_another_chosen_Numbers
+    
+
+    chosen_Numbers = generator_numers()
+    
+    
+    def find_duplicates(numbers, chosen_Numbers):
+        set1 = set(numbers)
+        set2 = set(chosen_Numbers)
+
+        common_elements = set1.intersection(set2)
+
+        if common_elements:
+            print(f"You have {len(common_elements)} numbers correct, then numbers being {list(common_elements)}")
+        else:
+            print("You kurwa nic nie trafil")
+    
+
+    def Winning(numbers, chosen_Numbers):
+        set1 = set(numbers)
+        set2 = set(chosen_Numbers)
+
+        common_elements = set1.intersection(set2)
+
+        if common_elements == 6:
+            print("NO WAY HOW THE FUCK DID YOU WON THAT MY NIGGA")
+            print(" go and play fr, you would have made like a bilion dolah by now")
+            print("Nahh you gotta be tripping, youre cheating my nigga. you aint winning shit")
+            print("System: MrBeast has left the chat...")
+
+
+    wait = 3
+
+    while wait > 0:
+        print(f"GENERATING... {wait}")
+        wait -= 1
+        time.sleep(1)
+    
+
+    print(f"Okay so your numbers are: {numbers}, machine generated numbers {chosen_Numbers}, than means that:")
+    
+    find_duplicates(numbers, chosen_Numbers)
+    Winning(numbers, chosen_Numbers)
+    
+
+    #ERRORS
+
+    #ERRORS 
+
+    #ERRORS
+
+elif play != "yes":
+    print(f"ERROR 1 with lock in input, you typen {play} not exactly y")
+elif len(numbers) != 6:
+    print(f"ERROR 2 You have to choose 6 numbers, and you choosen {len(numbers)}")
+elif has_duplicates(numbers):
+    print(f"ERROR 3 Your lists of numbers seem to have duplicate")
+elif not has_no_ints_greater_than(numbers, threshold):
+    print(f"ERROR 4 Your numbers cannot exeed 49")
+else:
+    print("ERROR 404 ERROR UNKNOWN")
